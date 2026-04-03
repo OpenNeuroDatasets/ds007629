@@ -1,0 +1,22 @@
+data:
+  attributes:
+    types:
+      resourceTypeGeneral: Dataset
+    contributors:
+      - name: David Jangraw
+        givenName: ''
+        familyName: ''
+        nameType: Personal
+        nameIdentifiers: &ref_0
+          - nameIdentifier: https://orcid.org/0000-0002-2470-7647
+            nameIdentifierScheme: ORCID
+            schemeUri: https://orcid.org
+        contributorType: Supervisor
+        order: 1
+    creators:
+      - name: David Jangraw
+        nameType: Personal
+        nameIdentifiers: *ref_0
+    descriptions:
+      - description: N/A
+        descriptionType: Abstract
