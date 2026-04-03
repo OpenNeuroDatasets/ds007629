@@ -1,5 +1,5 @@
 {
-    "Name": "[Unspecified]",
+    "Name": "ROAMM",
     "BIDSVersion": "1.9.0",
     "DatasetType": "raw",
     "Authors": [
@@ -12,5 +12,6 @@
             "Version": "0.18.0",
             "CodeURL": "https://mne.tools/mne-bids/"
         }
-    ]
+    ],
+    "License": "CC0"
 }
