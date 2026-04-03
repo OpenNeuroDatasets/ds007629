@@ -13,36 +13,10 @@ data:
             schemeUri: https://orcid.org
         contributorType: Supervisor
         order: 1
-      - name: David Jangraw
-        givenName: ''
-        familyName: ''
-        nameType: Personal
-        nameIdentifiers: &ref_1
-          - nameIdentifier: https://orcid.org/0000-0002-2470-7647
-            nameIdentifierScheme: ORCID
-            schemeUri: https://orcid.org
-        contributorType: Supervisor
-        order: 2
-      - name: David Jangraw
-        givenName: ''
-        familyName: ''
-        nameType: Personal
-        nameIdentifiers: &ref_2
-          - nameIdentifier: https://orcid.org/0000-0002-2470-7647
-            nameIdentifierScheme: ORCID
-            schemeUri: https://orcid.org
-        contributorType: Supervisor
-        order: 3
     creators:
       - name: David Jangraw
         nameType: Personal
         nameIdentifiers: *ref_0
-      - name: David Jangraw
-        nameType: Personal
-        nameIdentifiers: *ref_1
-      - name: David Jangraw
-        nameType: Personal
-        nameIdentifiers: *ref_2
     descriptions:
       - description: N/A
         descriptionType: Abstract
