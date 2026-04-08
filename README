@@ -11,7 +11,8 @@
 ## Project Details
 - **Task:** Naturalistic reading of standardized articles with retrospective self-report paradigm (ReMind task).
 - **Participants:** 44 subjects (50+ hours of data).
-- **Modalities:** - EEG (BioSemi ActiveTwo 64 channels).
+- **Modalities:** 
+    - EEG (BioSemi ActiveTwo 64 channels).
     - Simultaneous Eye-Tracking (SR Research EyeLink 1000 Plus).
     - Span-level mind-wandering annotations. 
     - Reading comprehension scores (page-level, multiple-choice questions).
