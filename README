@@ -1,254 +1,127 @@
-# \# ROAMM: Reading Observed At Mindless Moments
+# ROAMM: Reading Observed At Mindless Moments
 
-# 
+**ROAMM** is a large-scale multimodal dataset featuring simultaneous **EEG and eye-tracking** data collected during naturalistic reading with **span-level mind-wandering annotations**. ROAMM provides a benchmark dataset for MW detection and EEG-to-text decoding tasks, and enables the study of attention-related degradation in language decoding from brain activity in naturalistic reading.
 
-# \*\*ROAMM\*\* is a large-scale multimodal dataset featuring simultaneous \*\*EEG and eye-tracking\*\* data collected during naturalistic reading with \*\*span-level mind-wandering annotations\*\*. ROAMM provides a benchmark dataset for MW detection and EEG-to-text decoding tasks, and enables the study of attention-related degradation in language decoding from brain activity in naturalistic reading.
+## Dataset Status
 
-# 
+- **Synchronized ML Dataset:** For researchers looking for the pre-processed, synchronized EEG and eye-tracking data (Pickle format), please navigate to:
 
-# \## Dataset Status
+  `derivatives/synced/`
 
-# 
+- **Linguistic Content:** Reading materials (words with coordinate information) are stored in `derivatives/stimuli/wiki_stories`. Each word is assigned a unique key to enable mapping fixated words back to their original corpus.
 
-# \- \*\*Synchronized ML Dataset:\*\* For researchers looking for the pre-processed, synchronized EEG and eye-tracking data (Pickle format), please navigate to:
+- **Raw EEG (BIDS):** **Work in Progress.** We are currently converting the full raw EEG dataset for all participants into BIDS-compliant format.
 
-# 
+## Project Details
 
-# &#x20; `derivatives/synced/`
+- **Task:** Naturalistic reading of standardized articles with retrospective self-report paradigm (ReMind task).
+- **Participants:** 44 subjects (50+ hours of data).
+- **Modalities:**
+  - EEG (BioSemi ActiveTwo 64 channels).
+  - Simultaneous Eye-Tracking (SR Research EyeLink 1000 Plus).
+  - Span-level mind-wandering annotations.
+  - Reading comprehension scores (page-level, multiple-choice questions).
 
-# 
+## Structure
 
-# \- \*\*Linguistic Content:\*\* Reading materials (words with coordinate information) are stored in `derivatives/stimuli/wiki\_stories`. Each word is assigned a unique key to enable mapping fixated words back to their original corpus.
+This repository follows the Brain Imaging Data Structure (BIDS).
 
-# 
+- `participants.tsv`: Demographic information (age, sex, handedness, ADHD/Reading Disability status).
+- `derivatives/synced/`: Synchronized multi-modal data frames ready for Machine Learning pipelines.
 
-# \- \*\*Raw EEG (BIDS):\*\* \*\*Work in Progress.\*\* We are currently converting the full raw EEG dataset for all participants into BIDS-compliant format.
+## Code Repository
 
-# 
+Baseline models and machine learning pipelines are available at:
+**[https://github.com/GlassBrainLab/roamm_ml](https://github.com/GlassBrainLab/roamm_ml)**
 
-# \## Project Details
+## Dataset Column Descriptions
 
-# 
+The synchronized data frames in `derivatives/synced/` contain the following columns:
 
-# \- \*\*Task:\*\* Naturalistic reading of standardized articles with retrospective self-report paradigm (ReMind task).
+### EEG Signals
 
-# \- \*\*Participants:\*\* 44 subjects (50+ hours of data).
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `Fp1`–`O2` | 64 | V | 64 EEG channel voltage values using BioSemi 10–20 electrode labels. |
+| `time` | 1 | s | Timestamp aligned to the synchronized EEG time base. |
+| `sfreq` | 1 | Hz | Sampling frequency after synchronization/downsampling. |
 
-# \- \*\*Modalities:\*\*
+### Reading & Page Metadata
 
-# &#x20; - EEG (BioSemi ActiveTwo 64 channels).
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `first_pass_reading` | 1 | binary | Whether the sample belongs to first-pass reading. |
+| `page_num` | 1 | index | Page number within the current article. |
+| `page_start`, `page_end` | 2 | s | Start and end timestamps of the current page. |
+| `page_dur` | 1 | s | Duration of the current page. |
+| `run_num` | 1 | index | Article/run number within the session. |
+| `story_name` | 1 | text | Name of the Wikipedia article being read. |
 
-# &#x20; - Simultaneous Eye-Tracking (SR Research EyeLink 1000 Plus).
+### Mind-Wandering Annotations
 
-# &#x20; - Span-level mind-wandering annotations.
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `is_mw` | 1 | binary | Whether the sample is labeled as mind-wandering. |
+| `mw_onset`, `mw_offset` | 2 | s | Estimated onset and offset timestamps of the MW episode. |
+| `mw_dur` | 1 | s | Duration of the MW episode. |
 
-# &#x20; - Reading comprehension scores (page-level, multiple-choice questions).
+### Fixation Events
 
-# 
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `is_fix` | 1 | binary | Whether the sample occurs during a fixation. |
+| `fix_[L/R]_eye` | 2 | text | Eye associated with the fixation event. |
+| `fix_[L/R]_tStart`, `fix_[L/R]_tEnd` | 4 | s | Start and end timestamps of the fixation. |
+| `fix_[L/R]_duration` | 2 | ms | Duration of the fixation. |
+| `fix_[L/R]_xAvg`, `fix_[L/R]_yAvg` | 4 | px | Average fixation position on the screen. |
+| `fix_[L/R]_pupilAvg` | 2 | a.u. | Average pupil area during the fixation. |
+| `fix_[L/R]_fixed_word` | 2 | text | Word fixated during the event. |
+| `fix_[L/R]_fixed_word_key` | 2 | UUID | Unique key linking the fixation to a word in the story file. |
 
-# \## Structure
+### Blink Events
 
-# 
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `is_blink` | 1 | binary | Whether the sample occurs during a blink. |
+| `blink_[L/R]_eye` | 2 | text | Eye associated with the blink event. |
+| `blink_[L/R]_tStart`, `blink_[L/R]_tEnd` | 4 | s | Start and end timestamps of the blink. |
+| `blink_[L/R]_duration` | 2 | ms | Duration of the blink. |
 
-# This repository follows the Brain Imaging Data Structure (BIDS).
+### Saccade Events
 
-# 
-
-# \- `participants.tsv`: Demographic information (age, sex, handedness, ADHD/Reading Disability status).
-
-# \- `derivatives/synced/`: Synchronized multi-modal data frames ready for Machine Learning pipelines.
-
-# 
-
-# \## Code Repository
-
-# 
-
-# Baseline models and machine learning pipelines are available at:
-
-# 👉 \*\*\[https://github.com/GlassBrainLab/roamm\_ml](https://github.com/GlassBrainLab/roamm\_ml)\*\*
-
-# 
-
-# \## Dataset Column Descriptions
-
-# 
-
-# The synchronized data frames in `derivatives/synced/` contain the following columns:
-
-# 
-
-# \### EEG Signals
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `Fp1`–`O2` | 64 | V | 64 EEG channel voltage values using BioSemi 10–20 electrode labels. |
-
-# | `time` | 1 | s | Timestamp aligned to the synchronized EEG time base. |
-
-# | `sfreq` | 1 | Hz | Sampling frequency after synchronization/downsampling. |
-
-# 
-
-# \### Reading \& Page Metadata
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `first\_pass\_reading` | 1 | binary | Whether the sample belongs to first-pass reading. |
-
-# | `page\_num` | 1 | index | Page number within the current article. |
-
-# | `page\_start`, `page\_end` | 2 | s | Start and end timestamps of the current page. |
-
-# | `page\_dur` | 1 | s | Duration of the current page. |
-
-# | `run\_num` | 1 | index | Article/run number within the session. |
-
-# | `story\_name` | 1 | text | Name of the Wikipedia article being read. |
-
-# 
-
-# \### Mind-Wandering Annotations
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `is\_mw` | 1 | binary | Whether the sample is labeled as mind-wandering. |
-
-# | `mw\_onset`, `mw\_offset` | 2 | s | Estimated onset and offset timestamps of the MW episode. |
-
-# | `mw\_dur` | 1 | s | Duration of the MW episode. |
-
-# 
-
-# \### Fixation Events
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `is\_fix` | 1 | binary | Whether the sample occurs during a fixation. |
-
-# | `fix\_\[L/R]\_eye` | 2 | text | Eye associated with the fixation event. |
-
-# | `fix\_\[L/R]\_tStart`, `fix\_\[L/R]\_tEnd` | 4 | s | Start and end timestamps of the fixation. |
-
-# | `fix\_\[L/R]\_duration` | 2 | ms | Duration of the fixation. |
-
-# | `fix\_\[L/R]\_xAvg`, `fix\_\[L/R]\_yAvg` | 4 | px | Average fixation position on the screen. |
-
-# | `fix\_\[L/R]\_pupilAvg` | 2 | a.u. | Average pupil area during the fixation. |
-
-# | `fix\_\[L/R]\_fixed\_word` | 2 | text | Word fixated during the event. |
-
-# | `fix\_\[L/R]\_fixed\_word\_key` | 2 | UUID | Unique key linking the fixation to a word in the story file. |
-
-# 
-
-# \### Blink Events
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `is\_blink` | 1 | binary | Whether the sample occurs during a blink. |
-
-# | `blink\_\[L/R]\_eye` | 2 | text | Eye associated with the blink event. |
-
-# | `blink\_\[L/R]\_tStart`, `blink\_\[L/R]\_tEnd` | 4 | s | Start and end timestamps of the blink. |
-
-# | `blink\_\[L/R]\_duration` | 2 | ms | Duration of the blink. |
-
-# 
-
-# \### Saccade Events
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `is\_sacc` | 1 | binary | Whether the sample occurs during a saccade. |
-
-# | `sacc\_\[L/R]\_eye` | 2 | text | Eye associated with the saccade event. |
-
-# | `sacc\_\[L/R]\_tStart`, `sacc\_\[L/R]\_tEnd` | 4 | s | Start and end timestamps of the saccade. |
-
-# | `sacc\_\[L/R]\_duration` | 2 | ms | Duration of the saccade. |
-
-# | `sacc\_\[L/R]\_xStart`, `sacc\_\[L/R]\_yStart` | 4 | px | Starting screen position of the saccade. |
-
-# | `sacc\_\[L/R]\_xEnd`, `sacc\_\[L/R]\_yEnd` | 4 | px | Ending screen position of the saccade. |
-
-# | `sacc\_\[L/R]\_ampDeg` | 2 | degrees | Saccade amplitude in visual angle. |
-
-# | `sacc\_\[L/R]\_vPeak` | 2 | deg/s | Peak saccade velocity. |
-
-# 
-
-# \### Raw Eye-Tracking Samples
-
-# 
-
-# | Column(s) | # Cols | Unit | Description |
-
-# |---|---|---|---|
-
-# | `tSample` | 1 | s | Original eye-tracking sample timestamp. |
-
-# | `LX`, `LY`, `RX`, `RY` | 4 | px | Raw left/right gaze coordinates. |
-
-# | `LPupil`, `RPupil` | 2 | a.u. | Raw left/right pupil measurements. |
-
-# | `blink\_interp\_\[LX/LY/RX/RY]` | 4 | px | Blink-interpolated gaze coordinates. |
-
-# | `blink\_interp\_\[LPupil/RPupil]` | 2 | a.u. | Blink-interpolated pupil measurements. |
-
-# 
-
-# \## Publication \& Citation
-
-# 
-
-# The dataset paper describing the collection, synchronization, and baseline modeling of this data is available on OpenReview: \[https://openreview.net/forum?id=zqLPdt09fE](https://openreview.net/forum?id=zqLPdt09fE)
-
-# 
-
-# If you use ROAMM in your research, please cite:
-
-# 
-
-# ```bibtex
-
-# @inproceedings{sun2026roamm,
-
-# &#x20; title     = {{ROAMM}: A Benchmark Dataset for Multimodal Human Attention Decoding and {EEG}-to-Text Modeling During Naturalistic Reading},
-
-# &#x20; author    = {Haorui Sun and Ardyn Vivienne Olszko and Niharika Singh and David C. Jangraw},
-
-# &#x20; booktitle = {Forty-third International Conference on Machine Learning},
-
-# &#x20; year      = {2026},
-
-# &#x20; url       = {https://openreview.net/forum?id=zqLPdt09fE}
-
-# }
-
-# ```
-
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `is_sacc` | 1 | binary | Whether the sample occurs during a saccade. |
+| `sacc_[L/R]_eye` | 2 | text | Eye associated with the saccade event. |
+| `sacc_[L/R]_tStart`, `sacc_[L/R]_tEnd` | 4 | s | Start and end timestamps of the saccade. |
+| `sacc_[L/R]_duration` | 2 | ms | Duration of the saccade. |
+| `sacc_[L/R]_xStart`, `sacc_[L/R]_yStart` | 4 | px | Starting screen position of the saccade. |
+| `sacc_[L/R]_xEnd`, `sacc_[L/R]_yEnd` | 4 | px | Ending screen position of the saccade. |
+| `sacc_[L/R]_ampDeg` | 2 | degrees | Saccade amplitude in visual angle. |
+| `sacc_[L/R]_vPeak` | 2 | deg/s | Peak saccade velocity. |
+
+### Raw Eye-Tracking Samples
+
+| Column(s) | # Cols | Unit | Description |
+|---|---|---|---|
+| `tSample` | 1 | s | Original eye-tracking sample timestamp. |
+| `LX`, `LY`, `RX`, `RY` | 4 | px | Raw left/right gaze coordinates. |
+| `LPupil`, `RPupil` | 2 | a.u. | Raw left/right pupil measurements. |
+| `blink_interp_[LX/LY/RX/RY]` | 4 | px | Blink-interpolated gaze coordinates. |
+| `blink_interp_[LPupil/RPupil]` | 2 | a.u. | Blink-interpolated pupil measurements. |
+
+## Publication & Citation
+
+The dataset paper describing the collection, synchronization, and baseline modeling of this data is available on OpenReview: [https://openreview.net/forum?id=zqLPdt09fE](https://openreview.net/forum?id=zqLPdt09fE)
+
+If you use ROAMM in your research, please cite:
+
+```bibtex
+@inproceedings{sun2026roamm,
+  title     = {{ROAMM}: A Benchmark Dataset for Multimodal Human Attention Decoding and {EEG}-to-Text Modeling During Naturalistic Reading},
+  author    = {Haorui Sun and Ardyn Vivienne Olszko and Niharika Singh and David C. Jangraw},
+  booktitle = {Forty-third International Conference on Machine Learning},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=zqLPdt09fE}
+}
+```
