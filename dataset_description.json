@@ -17,5 +17,5 @@
     ],
     "License": "CC0",
     "DatasetDOI": "doi:10.18112/openneuro.ds007629.v1.1.0",
-    "HowToAcknowledge": "If you use ROAMM in your research, please cite:\n\n@inproceedings{sun2026roamm,\n\n  title     = {{ROAMM}: A Benchmark Dataset for Multimodal Human Attention Decoding and {EEG}-to-Text Modeling During Naturalistic Reading},\n\n  author    = {Haorui Sun and Ardyn Vivienne Olszko and Niharika Singh and David C. Jangraw},\n\n  booktitle = {Forty-third International Conference on Machine Learning},\n\n  year      = {2026},\n\n  url       = {https://openreview.net/forum?id=zqLPdt09fE}\n}"
+    "HowToAcknowledge": "If you use ROAMM in your research, please cite:\n\n@inproceedings{sun2026roamm,\n  title     = {{ROAMM}: A Benchmark Dataset for Multimodal Human Attention Decoding and {EEG}-to-Text Modeling During Naturalistic Reading},\n  author    = {Haorui Sun and Ardyn Vivienne Olszko and Niharika Singh and David C. Jangraw},\n  booktitle = {Forty-third International Conference on Machine Learning},\n  year      = {2026},\n  url       = {https://openreview.net/forum?id=zqLPdt09fE}\n}"
 }
