@@ -1,0 +1,52 @@
+# ROAMM: Reading Observed At Mindless Moments
+
+**ROAMM** is a large-scale multimodal dataset featuring simultaneous **EEG and eye-tracking** data collected during naturalistic reading with **span-level mind-wandering annotations**. ROAMM provides a benchmark dataset for MW detection and EEG-to-text decoding tasks, and enables the study of attention-related degradation in language decoding from brain activity in naturalistic reading.
+
+## Dataset Status
+
+- **Synchronized ML Dataset:** For researchers looking for the pre-processed, synchronized EEG and eye-tracking data (Pickle format), please navigate to:
+
+  `derivatives/synced/`
+
+- **Linguistic Content:** Reading materials (words with coordinate information) are stored in `derivatives/stimuli/wiki_stories`. Each word is assigned a unique key to enable mapping fixated words back to their original corpus.
+
+- **Raw EEG (BIDS):** **Work in Progress.** We are currently converting the full raw EEG dataset for all participants into BIDS-compliant format.
+
+## Project Details
+
+- **Task:** Naturalistic reading of standardized articles with retrospective self-report paradigm (ReMind task).
+- **Participants:** 44 subjects (50+ hours of data).
+- **Modalities:**
+  - EEG (BioSemi ActiveTwo 64 channels).
+  - Simultaneous Eye-Tracking (SR Research EyeLink 1000 Plus).
+  - Span-level mind-wandering annotations.
+  - Reading comprehension scores (page-level, multiple-choice questions).
+
+## Structure
+
+This repository follows the Brain Imaging Data Structure (BIDS).
+
+- `participants.tsv`: Demographic information (age, sex, handedness, ADHD/Reading Disability status).
+- `derivatives/synced/`: Synchronized multi-modal data frames ready for Machine Learning pipelines.
+
+## Code Repository
+
+Baseline models and machine learning pipelines are available at:
+**[https://github.com/GlassBrainLab/ROAMM](https://github.com/GlassBrainLab/ROAMM)**
+
+
+## Publication & Citation
+
+The dataset paper describing the collection, synchronization, and baseline modeling of this data is available on OpenReview: [https://openreview.net/forum?id=zqLPdt09fE](https://openreview.net/forum?id=zqLPdt09fE)
+
+If you use ROAMM in your research, please cite:
+
+```bibtex
+@inproceedings{sun2026roamm,
+  title     = {{ROAMM}: A Benchmark Dataset for Multimodal Human Attention Decoding and {EEG}-to-Text Modeling During Naturalistic Reading},
+  author    = {Haorui Sun and Ardyn Vivienne Olszko and Niharika Singh and David C. Jangraw},
+  booktitle = {Forty-third International Conference on Machine Learning},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=zqLPdt09fE}
+}
+```
