@@ -2,6 +2,8 @@
 
 **ROAMM** is a large-scale multimodal dataset featuring simultaneous **EEG** and **eye-tracking** recordings collected during naturalistic reading with **span-level mind-wandering annotations**. ROAMM provides a benchmark for mind-wandering detection, EEG-to-text decoding, and the study of how attention modulates language processing during naturalistic reading.
 
+To comply with OpenNeuro's BIDS requirements, this release includes one representative participant converted into BIDS format. The complete raw EEG and eye-tracking data for all 44 participants are available in `derivatives/raw_data/`, and the synchronized multimodal dataset is available in `derivatives/synced/`.
+
 ## Project Details
 
 - **Task:** Naturalistic reading using the **ReMind** retrospective self-report paradigm for span-level mind-wandering annotation.
@@ -47,7 +49,7 @@ Behavioral summary files:
 >
 > The primary purpose of the comprehension questions was to encourage participants to stay engaged with the reading task, rather than to serve as a primary experimental measure. Nevertheless, we hope these data will be useful for future research and are excited to see what the community discovers with them.
 
-### Raw EEG (BIDS)
+### EEG BIDS
 
 We do not plan to convert the remaining raw EEG recordings into BIDS format. ROAMM was collected during a naturalistic, less tightly laboratory-controlled reading task, and the dataset’s current participant- and run-based organization better preserves the relationships among its EEG, eye-tracking, behavioral-log, and session-documentation files.
 
