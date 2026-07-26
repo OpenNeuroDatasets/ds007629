@@ -22,7 +22,7 @@ For a detailed description of the experimental paradigm, retrospective annotatio
 ## Dataset Organization
 
 ### `derivatives/raw_data/`
-Raw data are now available for all participants. For details about the raw files, naming conventions, and participant-level directory structure, see the README in [`derivatives/raw_data/`](derivatives/raw_data/).
+Raw data are now available for all participants. For details about the raw files, naming conventions, and participant-level directory structure, see the README in [`derivatives/raw_data/`](https://openneuro.org/datasets/ds007629/file-display/derivatives:raw_data:README.md).
 
 ### `derivatives/synced/`
 
