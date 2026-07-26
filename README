@@ -21,6 +21,9 @@ For a detailed description of the experimental paradigm, retrospective annotatio
 
 ## Dataset Organization
 
+### `derivatives/raw_data/`
+Raw data are now available for all participants. For details about the raw files, naming conventions, and participant-level directory structure, see the README in [`derivatives/raw_data/`](derivatives/raw_data/).
+
 ### `derivatives/synced/`
 
 Preprocessed, synchronized EEG and eye-tracking data (Pickle format) ready for machine learning and multimodal analyses.
@@ -46,7 +49,7 @@ Behavioral summary files:
 
 ### Raw EEG (BIDS)
 
-**Work in Progress.** We are currently converting the full raw EEG dataset for all participants into BIDS-compliant format.
+We do not plan to convert the remaining raw EEG recordings into BIDS format. ROAMM was collected during a naturalistic, less tightly laboratory-controlled reading task, and the dataset’s current participant- and run-based organization better preserves the relationships among its EEG, eye-tracking, behavioral-log, and session-documentation files.
 
 ---
 
